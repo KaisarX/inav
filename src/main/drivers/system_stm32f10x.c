@@ -26,8 +26,6 @@
 #include "drivers/system.h"
 
 #define AIRCR_VECTKEY_MASK    ((uint32_t)0x05FA0000)
-
-// from system_stm32f10x.c
 void SetSysClock(uint8_t underclock);
 
 void systemReset(void)
@@ -68,8 +66,11 @@ bool isMPUSoftReset(void)
 
 static void systemTimekeepingSetup(void)
 {
+    RCC_ClocksTypeDef clocks;
+    RCC_GetClocksFreq(&clocks);
+
     cycleCounterInit();
-    SysTick_Config(SystemCoreClock / 1000);
+    SysTick_Config(clocks.SYSCLK_Frequency / 1000);
 }
 
 void systemClockSetup(uint8_t cpuUnderclock)

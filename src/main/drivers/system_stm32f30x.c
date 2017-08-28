@@ -40,7 +40,6 @@ void systemResetToBootloader(void)
     // 1FFFF004 -> 1FFFF021 -> PC
 
     *((uint32_t *)0x20009FFC) = 0xDEADBEEF; // 40KB SRAM STM32F30X
-
     systemReset();
 }
 
@@ -82,8 +81,11 @@ bool isMPUSoftReset(void)
 
 static void systemTimekeepingSetup(void)
 {
+    RCC_ClocksTypeDef clocks;
+    RCC_GetClocksFreq(&clocks);
+
     cycleCounterInit();
-    SysTick_Config(SystemCoreClock / 1000);
+    SysTick_Config(clocks.SYSCLK_Frequency / 1000);
 }
 
 void systemClockSetup(uint8_t cpuUnderclock)

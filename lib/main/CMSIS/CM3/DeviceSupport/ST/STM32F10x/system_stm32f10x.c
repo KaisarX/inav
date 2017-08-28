@@ -149,14 +149,15 @@ void SetSysClock(uint8_t underclock)
 #endif
     switch (clocksrc) {
         case SRC_HSE:
-            if (!underclock) {
+            if (underclock) {
+                // Reduce speed
                 if (RCC_CFGR_PLLMUL == RCC_CFGR_PLLMULL6)
                     RCC_CFGR_PLLMUL = RCC_CFGR_PLLMULL4;
                 else if (RCC_CFGR_PLLMUL == RCC_CFGR_PLLMULL9)
                     RCC_CFGR_PLLMUL = RCC_CFGR_PLLMULL6;
             }
-            // overclock=false : PLL configuration: PLLCLK = HSE * 9 = 72 MHz || HSE * 6 = 72 MHz
-            // overclock=true  : PLL configuration: PLLCLK = HSE * 6 = 48 MHz || HSE * 4 = 48 MHz
+            // underclock=false : PLL configuration: PLLCLK = HSE * 9 = 72 MHz || HSE * 6 = 72 MHz
+            // underclock=true  : PLL configuration: PLLCLK = HSE * 6 = 48 MHz || HSE * 4 = 48 MHz
             RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSE | RCC_CFGR_PLLMUL);
             break;
         case SRC_HSI:

@@ -315,6 +315,7 @@ void SetSysClock(uint8_t underclock)
     RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMULL));
 
     if (!underclock) {
+        // Full speed
         if (HSE_VALUE == 12000000) {
             RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLMULL6);
         }
@@ -323,6 +324,7 @@ void SetSysClock(uint8_t underclock)
         }
     }
     else {
+        // Reduced speed
         if (HSE_VALUE == 12000000) {
             RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLMULL4);
         }
