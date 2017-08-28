@@ -189,10 +189,10 @@ void init(void)
     ensureEEPROMContainsValidData();
     readEEPROM();
 
-#ifdef STM32F3
+#if defined(STM32F1) || defined(STM32F3)
     systemClockSetup(systemConfig()->cpuUnderclock);
 #endif
-
+    
     i2cSetSpeed(systemConfig()->i2c_speed);
 
 #ifdef USE_HARDWARE_PREBOOT_SETUP
