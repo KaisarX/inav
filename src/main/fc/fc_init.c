@@ -189,7 +189,7 @@ void init(void)
     ensureEEPROMContainsValidData();
     readEEPROM();
 
-#if defined(STM32F1) || defined(STM32F3)
+#ifdef USE_UNDERCLOCK
     systemClockSetup(systemConfig()->cpuUnderclock);
 #endif
     

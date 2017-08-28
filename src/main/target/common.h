@@ -31,16 +31,20 @@
 #define USE_SERIALRX_SBUS       // Very common protocol
 #define USE_SERIALRX_IBUS       // Cheap FlySky & Turnigy receivers
 
+#if defined(STM32F1) || defined(STM32F3)
+#define USE_UNDERCLOCK
+#endif
+
 #if (FLASH_SIZE > 64)
 #define USE_64BIT_TIME
-//#define BLACKBOX
+#define BLACKBOX
 #define GPS
 #define GPS_PROTO_UBLOX
 #define NAV
 #define USE_FLM_TURN_ASSIST     // This is mandatory for fixed-wing navigation
 #define TELEMETRY
-//#define TELEMETRY_LTM
-//#define TELEMETRY_FRSKY
+#define TELEMETRY_LTM
+#define TELEMETRY_FRSKY
 #endif
 
 #if defined(STM_FAST_TARGET)
