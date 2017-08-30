@@ -32,6 +32,7 @@ void targetConfiguration(void)
 {
     barometerConfigMutable()->baro_hardware = BARO_BMP280;
     rxConfigMutable()->sbus_inversion = 1;
+    serialConfigMutable()->portConfigs[1].functionMask = FUNCTION_MSP; // So SPRacingF3OSD users don't have to change anything.
     serialConfigMutable()->portConfigs[findSerialPortIndexByIdentifier(TELEMETRY_UART)].functionMask = FUNCTION_TELEMETRY_SMARTPORT;
     telemetryConfigMutable()->telemetry_inversion = true;
 }
