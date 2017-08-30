@@ -51,12 +51,14 @@
 
 #define BARO
 #define USE_BARO_BMP280
+#define USE_BARO_MS5611
 
 #define MAG
 #define USE_MAG_AK8975
 #define USE_MAG_HMC5883
 
 #define USB_IO
+
 #define USE_VCP
 #define USE_UART1
 #define USE_UART2
@@ -81,14 +83,13 @@
 #define UART5_RX_PIN            PD2
 
 #define USE_I2C
-#define USE_I2C_DEVICE_1
 #define I2C_DEVICE              (I2CDEV_1)
 #if (SPRACINGF4EVO_REV >= 2)
-    #define I2C1_SCL                PB8
-    #define I2C1_SDA                PB9
+    #define I2C1_SCL            PB8
+    #define I2C1_SDA            PB9
 #else
-    #define I2C1_SCL                PB6
-    #define I2C1_SDA                PB7
+    #define I2C1_SCL            PB6
+    #define I2C1_SDA            PB7
 #endif
 
 #define USE_SPI
@@ -111,17 +112,20 @@
 #define SPI3_MISO_PIN           PB4  // NC
 #define SPI3_MOSI_PIN           PB5  // NC
 
-#define USE_SDCARD
+#define VTX_RTC6705
+#define VTX_RTC6705_OPTIONAL    // SPI3 on an F4 EVO may be used for RTC6705 VTX control.
 
+#define RTC6705_CS_PIN          SPI3_NSS_PIN
+#define RTC6705_SPI_INSTANCE    SPI3
+
+#define USE_SDCARD
 #define SDCARD_DETECT_INVERTED
 #define SDCARD_DETECT_PIN                   PC14
 
 #define SDCARD_SPI_INSTANCE                 SPI2
 #define SDCARD_SPI_CS_PIN                   SPI2_NSS_PIN
 
-// SPI3 is on the APB1 bus whose clock runs at 84MHz. Divide to under 400kHz for init:
 #define SDCARD_SPI_INITIALIZATION_CLOCK_DIVIDER 256 // 328kHz
-// Divide to under 25MHz for normal operation:
 #define SDCARD_SPI_FULL_SPEED_CLOCK_DIVIDER     4 // 21MHz
 
 #define SDCARD_DMA_CHANNEL_TX               DMA1_Stream4
@@ -143,10 +147,11 @@
 // PC4 - NC - Free for ADC12_IN14 / VTX CS
 // PC5 - NC - Free for ADC12_IN15 / VTX Enable / OSD VSYNC
 
-// #define OSD
-// #define USE_OSD_OVER_MSP_DISPLAYPORT
+//#define OSD
+//#define USE_MAX7456
+//#define USE_OSD_OVER_MSP_DISPLAYPORT
 
-// #define LED_STRIP
+//#define LED_STRIP
 
 #define ENABLE_BLACKBOX_LOGGING_ON_SDCARD_BY_DEFAULT
 
